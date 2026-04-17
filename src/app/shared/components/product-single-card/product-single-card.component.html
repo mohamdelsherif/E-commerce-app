@@ -1,0 +1,60 @@
+<div class="bg-white border border-gray-200 rounded-lg overflow-hidden">
+  <div class="relative">
+    <img class="w-full h-60 object-contain bg-white" alt="Woman Shawl" [src]="product().imageCover" />
+
+    <div class="absolute top-3 right-3 flex flex-col space-y-2">
+
+      <!-- Wishlist -->
+      <button title=" Add to Wishlist" (click)="addToWishlist(product()._id)"
+        class="bg-white cursor-pointer h-8 w-8 rounded-full flex items-center justify-center transition shadow-sm text-gray-600 hover:text-red-500 active:bg-red-500">
+        <i class="far fa-heart"></i>
+      </button>
+
+      <!-- Compare -->
+      <button title="Compare"
+        class="bg-white cursor-pointer h-8 w-8 rounded-full flex items-center justify-center text-gray-600 hover:text-green-600 transition shadow-sm">
+        <i class="fas fa-arrows-rotate"></i>
+      </button>
+
+      <!-- View -->
+      <a title="View Details"
+        class="bg-white cursor-pointer h-8 w-8 rounded-full flex items-center justify-center text-gray-600 hover:text-green-600 transition shadow-sm">
+        <i class="far fa-eye"></i>
+      </a>
+
+    </div>
+  </div>
+
+  <div class="p-4">
+    <div class="text-xs text-gray-500 mb-1">{{ product().category.name }}</div>
+
+    <h3 class="font-medium mb-1 cursor-pointer">
+      <a class="line-clamp-2">
+        {{ product().title }}
+      </a>
+    </h3>
+
+    <!-- Rating -->
+    <div class="flex items-center mb-2">
+      <div class="flex text-yellow-400 mr-2">
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="far fa-star"></i>
+      </div>
+      <span class="text-xs text-gray-500">{{ product().ratingsAverage }} ({{product().quantity}})</span>
+    </div>
+
+    <div class="flex items-center justify-between">
+      <span class="text-lg font-bold text-gray-800">{{ product().price }} EGP</span>
+
+      <!-- Add to Cart -->
+      <button [disabled]="!islogged()" title="Add to Cart" (click)="addToCart(product()._id)"
+        class="h-10 w-10 rounded-full flex items-center justify-center transition bg-primary-600 text-white cursor-pointer bg-green-700 disabled:bg-green-300 disabled:cursor-not-allowed">
+        <i class="fas fa-plus"></i>
+      </button>
+
+    </div>
+  </div>
+</div>

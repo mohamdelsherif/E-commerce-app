@@ -1,0 +1,11 @@
+<!-- title -->
+<div class="flex items-center gap-3 my-8">
+  <div class="h-8 w-1.5 bg-linear-to-b from-emerald-500 to-emerald-700 rounded-full"></div>
+  <h2 class="text-3xl font-bold text-gray-800">Featured <span class="text-emerald-600">Products</span></h2>
+</div>
+<!-- card design -->
+<div class="grid grid-cols-1 gap-4 md:grid-cols-4 lg:grid-cols-5">
+  @for (item of listOfProducts(); track item._id) {
+  <app-product-single-card [product]="item"></app-product-single-card>
+  }
+</div>
