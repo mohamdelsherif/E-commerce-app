@@ -7,6 +7,9 @@ import { environment } from '../../../../environments/environment';
   providedIn: 'root',
 })
 export class CartService {
+  getUserCart() {
+    throw new Error('Method not implemented.');
+  }
   private readonly http: HttpClient = inject(HttpClient)
 
   numOfCartItems = signal<number>(0);

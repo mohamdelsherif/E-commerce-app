@@ -5,6 +5,7 @@ import { IWishlist } from '../../../core/models/iwishlist/i-wishlist.interface';
 import { ToastrService } from 'ngx-toastr';
 import { CartService } from '../../../core/services/cart/cart.service';
 import { Router } from '@angular/router';
+import { PlatformService } from '../../../core/services/platform/platform.service';
 
 @Component({
   selector: 'app-wishlist',
@@ -18,14 +19,16 @@ export class WishlistComponent {
   private readonly cartservice: CartService = inject(CartService)
   private readonly router: Router = inject(Router);
   private readonly toastr: ToastrService = inject(ToastrService)
-
+  private readonly platformService: PlatformService = inject(PlatformService)
   wishlistItems = signal<IWishlist[]>([])
   count = signal<number>(0)
 
   cartIds = signal<Set<string>>(new Set())
   ngOnInit(): void {
     this.getWishlistItems()
-    this.cartservice.getCartStatus();
+    if (this.platformService.isBrowser()) {
+      this.cartservice.getCartStatus();
+    }
   }
 
   getWishlistItems() {
