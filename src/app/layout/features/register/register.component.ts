@@ -57,14 +57,4 @@ export class RegisterComponent {
     return null;
   }
 
-
-  // togglePasswordVisibility(inputElement: HTMLInputElement) {
-  //   if (inputElement.getAttribute('type') === 'password') {
-  //     inputElement.setAttribute('type', 'text');
-
-  //   }
-  //   else {
-  //     inputElement.setAttribute('type', 'password');
-  //   }
-  // }
 }

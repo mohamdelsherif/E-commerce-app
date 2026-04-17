@@ -4,6 +4,7 @@ import { FlowbiteService } from '../../../core/services/flowbite/flowbite.servic
 import { initFlowbite } from 'flowbite';
 import { AuthService } from '../../../core/services/Auth/auth.service';
 import { CartService } from '../../../core/services/cart/cart.service';
+import { PlatformService } from '../../../core/services/platform/platform.service';
 
 @Component({
   selector: 'app-navbar',
@@ -16,6 +17,7 @@ export class NavbarComponent {
   private readonly router: Router = inject(Router);
   private readonly authService: AuthService = inject(AuthService);
   private readonly cartService: CartService = inject(CartService);
+  private readonly platformService: PlatformService = inject(PlatformService);
 
 
 
@@ -30,7 +32,9 @@ export class NavbarComponent {
 
   ngOnInit(): void {
     this.flowbite();
-    this.cartService.numOfCartItems
+    if (this.platformService.isBrowser()) {
+      this.cartService.numOfCartItems
+    }
   }
 
   flowbite() {
