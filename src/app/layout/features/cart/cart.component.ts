@@ -2,7 +2,7 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { CartService } from '../../../core/services/cart/cart.service';
 import { ToastrService } from 'ngx-toastr';
 import { Iproduct } from '../../../core/models/iproduct/iproduct.interface';
-import { ProductItem } from '../../../core/models/productItem/product-item.interface';
+import { ICartProduct } from '../../../core/models/productItem/product-item.interface';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -17,7 +17,7 @@ export class CartComponent {
 
   totalCartPrice = signal<number>(0)
   cartId = signal<string>('')
-  productsList = signal<ProductItem[]>([])
+  productsList = signal<ICartProduct[]>([])
   numOfCartItems = computed(() => this.cartService.numOfCartItems())
 
   ngOnInit(): void {

@@ -47,7 +47,7 @@ export class WishlistComponent {
       next: (res) => {
         console.log(res)
         this.getWishlistItems()
-        this.toastr.success(res.message, 'Success')
+        this.toastr.success(res.status, 'Success')
       }
     })
   }
@@ -61,7 +61,7 @@ export class WishlistComponent {
     });
   }
   goToCart() {
-    this.router.navigate(['/cart']); // تأكد من الـ path الصح عندك
+    this.router.navigate(['/cart']);
   }
 
 }

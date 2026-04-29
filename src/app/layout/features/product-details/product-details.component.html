@@ -1,0 +1,280 @@
+<div class="container mx-auto p-4 md:p-8 bg-white min-h-screen">
+  <nav class="flex text-sm text-gray-500 mb-8 items-center space-x-2 rtl:space-x-reverse">
+    <span>Home</span> <i class="fas fa-chevron-right text-2xs"></i>
+    <span>Women's Fashion</span> <i class="fas fa-chevron-right text-2xs"></i>
+    <span>Women's Clothing</span> <i class="fas fa-chevron-right text-2xs"></i>
+    <span class="text-slate-900 font-semibold">Woman Shawl</span>
+  </nav>
+
+  <div class="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12">
+
+    <div class="md:col-span-5 w-full">
+      <div class="sticky top-8">
+        <swiper-container style="--swiper-navigation-color: #10b981; --swiper-pagination-color: #10b981"
+          thumbs-swiper=".product-thumbs" space-between="10" navigation="true" loop="true"
+          class="rounded-xl border border-gray-100 shadow-sm overflow-hidden bg-gray-50">
+
+          @for (img of product()?.images; track $index) {
+          <swiper-slide class="flex justify-center items-center">
+            <img [src]="img" class="w-full h-auto object-contain max-h-125" alt="Product Image" />
+          </swiper-slide>
+          }
+        </swiper-container>
+
+        <swiper-container class="product-thumbs mt-4 h-24" space-between="12" slides-per-view="4" free-mode="true"
+          watch-slides-progress="true" loop="true">
+
+          @for (img of product()?.images; track $index) {
+          <swiper-slide
+            class="cursor-pointer opacity-50 transition-opacity duration-300 [&.swiper-slide-thumb-active]:opacity-100 [&.swiper-slide-thumb-active]:border-2 [&.swiper-slide-thumb-active]:border-green-500 rounded-lg overflow-hidden border-2 border-transparent">
+            <img [src]="img" class="w-full h-full object-cover" />
+          </swiper-slide>
+          }
+        </swiper-container>
+      </div>
+    </div>
+
+    <div class="md:col-span-7 flex flex-col space-y-5">
+      <div class="flex items-center gap-3">
+        <span
+          class="bg-green-50 text-green-700 text-xs font-semibold px-3 py-1 rounded-md border border-green-100">Women's
+          Fashion</span>
+        <span
+          class="bg-gray-50 text-gray-600 text-xs font-semibold px-3 py-1 rounded-md border border-gray-200">DeFacto</span>
+      </div>
+
+      <h1 class="text-3xl md:text-4xl font-extrabold text-slate-800 tracking-tight">
+        {{product()?.title}}
+      </h1>
+
+      <div class="flex items-center gap-4">
+        <div class="flex text-yellow-400">
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="far fa-star text-gray-300"></i>
+        </div>
+        <span class="text-gray-500 text-sm font-medium">3.8 (12 reviews)</span>
+      </div>
+
+      <div class="flex items-baseline gap-2">
+        <span class="text-4xl font-black text-slate-900">{{product()?.price}}</span>
+        <span class="text-lg font-bold text-slate-700 uppercase">EGP</span>
+      </div>
+
+      <div class="flex items-center gap-2 px-3 py-1.5 bg-green-50 w-fit rounded-lg border border-green-100">
+        <span class="relative flex h-2.5 w-2.5">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-600"></span>
+        </span>
+        <span class="text-green-700 text-sm font-bold uppercase tracking-wide">In Stock</span>
+      </div>
+
+      <p class="text-gray-500 text-[15px] leading-relaxed max-w-xl py-2 flex flex-wrap items-center gap-2">
+        @for (item of formattedDesc(); track $index) {
+        <span>
+          {{ item.key }}: <span class="text-slate-800 font-medium italic">{{ item.value }}</span>
+
+          @if (!$last) {
+          <span class="mx-2 text-gray-300">|</span>
+          }
+        </span>
+        }
+      </p>
+
+      <div class="space-y-3 pt-2">
+        <label class="text-sm font-bold text-slate-700 uppercase tracking-wider">Quantity</label>
+        <div class="flex items-center gap-6">
+          <div class="flex items-center bg-white border-2 border-gray-200 rounded-xl overflow-hidden shadow-sm">
+            <!-- زر الناقص -->
+            <button (click)="decreaseCount()"
+              class="px-5 py-2.5 hover:bg-gray-50 transition active:scale-95 text-slate-600 border-r border-gray-100 disabled:opacity-50"
+              [disabled]="quantityCount() === 1">
+              <i class="fas fa-minus text-xs"></i>
+            </button>
+
+
+            <!-- عرض الكمية -->
+            <input type="text" [value]="quantityCount()" readonly title="quantity"
+              class="w-14 text-center font-bold text-slate-800 focus:outline-none" />
+
+            <!-- زر الزائد -->
+            <button (click)="increaseCount()"
+              class="px-5 py-2.5 hover:bg-gray-50 transition active:scale-95 text-slate-600 border-l border-gray-100">
+              <i class="fas fa-plus text-xs"></i>
+            </button>
+          </div>
+          <span class="text-gray-400 text-sm font-medium">{{(product()?.quantity ?? 0) - quantityCount()}} units available</span>
+        </div>
+      </div>
+
+      <div
+        class="bg-slate-50 p-5 rounded-2xl flex justify-between items-center border border-slate-100 shadow-inner mt-4">
+        <span class="text-slate-500 font-semibold uppercase text-xs tracking-widest">Total Estimated Price</span>
+        <span class="text-green-600 font-black text-2xl">{{ (product()?.price ?? 0) * quantityCount() }} EGP</span>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
+        <button (click)="addToCart()"
+          class="bg-[#10b981] hover:bg-green-600 text-white py-4 rounded-xl flex items-center justify-center gap-3 font-bold transition-all duration-300 shadow-lg shadow-green-100 hover:shadow-green-200 active:scale-[0.98]">
+          <i class="fas fa-cart-plus text-lg"></i> Add To Cart
+        </button>
+        <button
+          class="bg-[#0f172a] hover:bg-slate-800 text-white py-4 rounded-xl flex items-center justify-center gap-3 font-bold transition-all duration-300 shadow-lg shadow-slate-100 hover:shadow-slate-300 active:scale-[0.98]">
+          <i class="fas fa-bolt text-lg"></i> Buy Now
+        </button>
+      </div>
+      <div class="flex gap-4 items-center mt-6">
+        <button (click)="addToWishlist()"
+          class="flex-1 border-2 border-gray-100 hover:border-gray-200 hover:bg-gray-50 text-slate-700 py-3 rounded-xl flex items-center justify-center gap-2 font-semibold transition-all duration-300">
+          <i class="far fa-heart"></i> Add to Wishlist
+        </button>
+
+        <button
+          class="w-14 h-13 border-2 border-gray-100 hover:border-gray-200 hover:bg-gray-50 text-slate-700 rounded-xl flex items-center justify-center transition-all duration-300">
+          <i class="fas fa-share-alt"></i>
+        </button>
+      </div>
+
+      <hr class="my-8 border-gray-100">
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+
+        <div class="flex items-center gap-4">
+          <div class="w-12 h-12 bg-green-100 text-green-600 rounded-full flex items-center justify-center shrink-0">
+            <i class="fas fa-truck text-lg"></i>
+          </div>
+          <div>
+            <h4 class="text-sm font-bold text-slate-800">Free Delivery</h4>
+            <p class="text-xs text-gray-500">Orders over $50</p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-4">
+          <div class="w-12 h-12 bg-green-100 text-green-600 rounded-full flex items-center justify-center shrink-0">
+            <i class="fas fa-undo-alt text-lg"></i>
+          </div>
+          <div>
+            <h4 class="text-sm font-bold text-slate-800">30 Days Return</h4>
+            <p class="text-xs text-gray-500">Money back</p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-4">
+          <div class="w-12 h-12 bg-green-100 text-green-600 rounded-full flex items-center justify-center shrink-0">
+            <i class="fas fa-shield-alt text-lg"></i>
+          </div>
+          <div>
+            <h4 class="text-sm font-bold text-slate-800">Secure Payment</h4>
+            <p class="text-xs text-gray-500">100% Protected</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<div class="mt-12 w-full">
+  <div class="mb-4 border-b border-gray-100 bg-gray-50/50 rounded-t-lg">
+    <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" id="productTab"
+      data-tabs-toggle="#productTabContent" role="tablist">
+      <li class="me-2" role="presentation">
+        <button
+          class="inline-flex items-center justify-center p-4 border-b-2 rounded-t-lg gap-2 transition-all duration-300 aria-selected:text-green-600 aria-selected:border-green-600 border-transparent hover:text-gray-600 hover:border-gray-300"
+          id="details-tab" data-tabs-target="#details" type="button" role="tab" aria-controls="details"
+          aria-selected="true">
+          <i class="fas fa-book-open text-xs"></i> Product Details
+        </button>
+      </li>
+      <li class="me-2" role="presentation">
+        <button
+          class="inline-flex items-center justify-center p-4 border-b-2 rounded-t-lg gap-2 transition-all duration-300 aria-selected:text-green-600 aria-selected:border-green-600 border-transparent hover:text-gray-600 hover:border-gray-300 text-gray-500"
+          id="reviews-tab" data-tabs-target="#reviews" type="button" role="tab" aria-controls="reviews"
+          aria-selected="false">
+          <i class="fas fa-star text-2xs"></i> Reviews ({{product()?.ratingsQuantity}})
+        </button>
+      </li>
+      <li class="me-2" role="presentation">
+        <button
+          class="inline-flex items-center justify-center p-4 border-b-2 rounded-t-lg gap-2 transition-all duration-300 aria-selected:text-green-600 aria-selected:border-green-600 border-transparent hover:text-gray-600 hover:border-gray-300 text-gray-500"
+          id="shipping-tab" data-tabs-target="#shipping" type="button" role="tab" aria-controls="shipping"
+          aria-selected="false">
+          <i class="fas fa-truck-fast text-2xs"></i> Shipping & Returns
+        </button>
+      </li>
+    </ul>
+  </div>
+
+  <div id="productTabContent" class="p-4">
+    <div class="hidden space-y-6" id="details" role="tabpanel" aria-labelledby="details-tab">
+      <div>
+        <h3 class="text-lg font-bold text-slate-800 mb-2">About this Product</h3>
+        <p class="text-gray-500 text-[15px] leading-relaxed max-w-xl py-2 flex flex-wrap items-center gap-2">
+          @for (item of formattedDesc(); track $index) {
+          <span>
+            {{ item.key }}: <span class="text-slate-800 font-medium italic">{{ item.value }}</span>
+
+            @if (!$last) {
+            <span class="mx-2 text-gray-300">|</span>
+            }
+          </span>
+          }
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-gray-50/50 p-6 rounded-xl border border-gray-100">
+          <h4 class="font-bold text-slate-800 mb-4">Product Information</h4>
+          <div class="space-y-3">
+            <div class="flex justify-between text-sm">
+              <span class="text-gray-500 font-medium">Category</span>
+              <span class="text-slate-800 font-semibold">{{product()?.category?.name}}</span>
+            </div>
+            <div class="flex justify-between text-sm">
+              <span class="text-gray-500 font-medium">Subcategory</span>
+              <span class="text-slate-800 font-semibold">{{product()?.subcategory?.name}}</span>
+            </div>
+            <div class="flex justify-between text-sm">
+              <span class="text-gray-500 font-medium">Brand</span>
+              <span class="text-slate-800 font-semibold">{{product()?.brand?.name}}</span>
+            </div>
+            <div class="flex justify-between text-sm">
+              <span class="text-gray-500 font-medium">Items Sold</span>
+              <span class="text-slate-800 font-semibold">{{product()?.sold}} sold</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-gray-50/50 p-6 rounded-xl border border-gray-100">
+          <h4 class="font-bold text-slate-800 mb-4">Key Features</h4>
+          <ul class="space-y-3">
+            <li class="flex items-center gap-3 text-sm text-slate-700">
+              <i class="fas fa-check text-green-500"></i> Premium Quality Product
+            </li>
+            <li class="flex items-center gap-3 text-sm text-slate-700">
+              <i class="fas fa-check text-green-500"></i> 100% Authentic Guarantee
+            </li>
+            <li class="flex items-center gap-3 text-sm text-slate-700">
+              <i class="fas fa-check text-green-500"></i> Fast & Secure Packaging
+            </li>
+            <li class="flex items-center gap-3 text-sm text-slate-700">
+              <i class="fas fa-check text-green-500"></i> Quality Tested
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="hidden" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
+      @if (product()) {
+      <app-ratings [average]="product()!.ratingsAverage" [quantity]="product()!.ratingsQuantity">
+      </app-ratings>
+      }
+    </div>
+
+    <div class="hidden" id="shipping" role="tabpanel" aria-labelledby="shipping-tab">
+      <app-shipping-info></app-shipping-info>
+    </div>
+  </div>
+</div>

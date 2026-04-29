@@ -1,32 +1,49 @@
+export interface ICartResponse {
+  status: string;
+  message: string;
+  numOfCartItems: number;
+  cartId: string;
+  data: ICartData;
+}
 
-export interface ProductItem {
+export interface ICartData {
+  _id: string;
+  cartOwner: string;
+  products: ICartProduct[];
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+  totalCartPrice: number;
+}
+
+export interface ICartProduct {
   count: number;
   _id: string;
-  product: Product;
+  product: IProductDetails;
   price: number;
 }
 
-interface Product {
-  subcategory: Subcategory[];
+export interface IProductDetails {
+  subcategory: ISubcategory[];
   _id: string;
   title: string;
   slug: string;
   quantity: number;
   imageCover: string;
-  category: Category;
-  brand: Category;
+  category: ICategory;
+  brand: ICategory; // الـ Brand والـ Category ليهم نفس الشكل فممكن نستخدم نفس الـ Interface
   ratingsAverage: number;
   id: string;
 }
 
-interface Category {
+export interface ICategory {
   _id: string;
   name: string;
   slug: string;
-  image: string;
+  image?: string; // علامة الاستفهام لأن الصورة موجودة في الـ Category بس مش الـ Brand في الـ JSON بتاعك
 }
 
-interface Subcategory {
+export interface ISubcategory {
   _id: string;
   name: string;
   slug: string;

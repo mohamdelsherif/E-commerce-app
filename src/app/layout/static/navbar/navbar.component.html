@@ -54,17 +54,28 @@
         <!-- Icons -->
         <div class="hidden md:flex items-center gap-5 text-xl text-gray-600">
           <div
-            class="size-10 rounded-full flex justify-center  items-center hover:text-green-600 hover:bg-gray-100 transition cursor-pointer">
-            <i routerLink="/wishlist" class="fa-regular fa-heart "></i>
+            class="relative size-10 rounded-full flex justify-center items-center hover:text-red-600 hover:bg-gray-100 transition cursor-pointer"
+            routerLink="/wishlist">
+
+            <i class="fa-regular fa-heart"></i>
+
+            <!-- الـ Badge الحمراء للـ Wishlist -->
+            @if (numOfWishlistItems() > 0) {
+            <div
+              class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-600 border-2 border-white rounded-full -top-2 -inset-e-2">
+              {{ numOfWishlistItems() }}
+            </div>
+            }
           </div>
 
           <div
             class="relative  size-10 rounded-full flex justify-center items-center hover:text-green-600 hover:bg-gray-100 transition cursor-pointer">
             <i routerLink="/cart" class="fa-solid fa-cart-shopping"></i>
+            @if (numOfCartItems() > 0) {
             <div
               class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-green-700 border-2 border-buffer rounded-full -top-2 -inset-e-2">
               {{numOfCartItems()}}</div>
-
+            }
           </div>
         </div>
         @if (iSlogged()) {

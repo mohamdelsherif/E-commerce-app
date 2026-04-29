@@ -40,6 +40,12 @@ export const routes: Routes = [
     title: 'Cart'
   },
   {
+    path: 'product/:id',
+    loadComponent: () => import('./layout/features/product-details/product-details.component')
+      .then(m => m.ProductDetailsComponent),
+    title: 'Product'
+  },
+  {
     path: 'wishlist',
     canActivate: [authGuard],
     loadComponent: () => import('./layout/features/wishlist/wishlist.component')

@@ -1,0 +1,54 @@
+<div class="flex flex-col md:flex-row items-center gap-12 p-6 bg-white rounded-2xl border border-gray-100">
+
+  <div class="flex flex-col items-center space-y-2">
+    <span class="text-7xl font-black text-slate-800">{{ average() }}</span>
+    <div class="flex gap-1">
+      @for (star of stars; track $index) {
+      <i [class]="getStarClass(star)"></i>
+      }
+    </div>
+    <span class="text-gray-400 font-medium text-sm">Based on {{ quantity() }} reviews</span>
+  </div>
+
+  <div class="flex-1 w-full space-y-4">
+    <div class="flex items-center gap-4">
+      <span class="text-sm font-bold text-slate-600 w-12 italic text-nowrap">5 star</span>
+      <div class="w-full bg-gray-200 rounded-full h-2">
+        <div class="bg-yellow-400 h-2 rounded-full" style="width: 70%"></div>
+      </div>
+      <span class="text-sm font-semibold text-gray-400 w-10 text-right">70%</span>
+    </div>
+
+    <div class="flex items-center gap-4">
+      <span class="text-sm font-bold text-slate-600 w-12 italic text-nowrap">4 star</span>
+      <div class="w-full bg-gray-200 rounded-full h-2">
+        <div class="bg-yellow-400 h-2 rounded-full" style="width: 15%"></div>
+      </div>
+      <span class="text-sm font-semibold text-gray-400 w-10 text-right">15%</span>
+    </div>
+
+    <div class="flex items-center gap-4">
+      <span class="text-sm font-bold text-slate-600 w-12 italic text-nowrap">3 star</span>
+      <div class="w-full bg-gray-200 rounded-full h-2">
+        <div class="bg-yellow-400 h-2 rounded-full" style="width: 5%"></div>
+      </div>
+      <span class="text-sm font-semibold text-gray-400 w-10 text-right">5%</span>
+    </div>
+
+    <div class="flex items-center gap-4">
+      <span class="text-sm font-bold text-slate-600 w-12 italic text-nowrap">2 star</span>
+      <div class="w-full bg-gray-200 rounded-full h-2">
+        <div class="bg-yellow-400 h-2 rounded-full" style="width: 5%"></div>
+      </div>
+      <span class="text-sm font-semibold text-gray-400 w-10 text-right">5%</span>
+    </div>
+
+    <div class="flex items-center gap-4">
+      <span class="text-sm font-bold text-slate-600 w-12 italic text-nowrap">1 star</span>
+      <div class="w-full bg-gray-200 rounded-full h-2">
+        <div class="bg-yellow-400 h-2 rounded-full" style="width: 5%"></div>
+      </div>
+      <span class="text-sm font-semibold text-gray-400 w-10 text-right">5%</span>
+    </div>
+  </div>
+</div>

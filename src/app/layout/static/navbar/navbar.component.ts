@@ -5,6 +5,7 @@ import { initFlowbite } from 'flowbite';
 import { AuthService } from '../../../core/services/Auth/auth.service';
 import { CartService } from '../../../core/services/cart/cart.service';
 import { PlatformService } from '../../../core/services/platform/platform.service';
+import { WishlistService } from '../../../core/services/wishlist/wishlist.service';
 
 @Component({
   selector: 'app-navbar',
@@ -18,11 +19,12 @@ export class NavbarComponent {
   private readonly authService: AuthService = inject(AuthService);
   private readonly cartService: CartService = inject(CartService);
   private readonly platformService: PlatformService = inject(PlatformService);
-
+  private readonly wishlistService = inject(WishlistService);
 
 
   iSlogged = computed(() => this.authService.isLoggin());
   numOfCartItems = computed(() => this.cartService.numOfCartItems());
+  numOfWishlistItems = computed(() => this.wishlistService.wishlistCount());
 
   mobileMenuOpen = false;
 
@@ -33,7 +35,8 @@ export class NavbarComponent {
   ngOnInit(): void {
     this.flowbite();
     if (this.platformService.isBrowser()) {
-      this.cartService.numOfCartItems
+      this.cartService.getCartItems().subscribe();
+      this.wishlistService.getWishlistItems().subscribe();
     }
   }
 

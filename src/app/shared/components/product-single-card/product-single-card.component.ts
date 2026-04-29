@@ -4,10 +4,11 @@ import { AuthService } from '../../../core/services/Auth/auth.service';
 import { CartService } from '../../../core/services/cart/cart.service';
 import { ToastrService } from 'ngx-toastr';
 import { WishlistService } from '../../../core/services/wishlist/wishlist.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-product-single-card',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './product-single-card.component.html',
   styleUrl: './product-single-card.component.css',
 })
@@ -15,7 +16,6 @@ export class ProductSingleCardComponent {
   private readonly authService: AuthService = inject(AuthService)
   private readonly cartService: CartService = inject(CartService)
   private readonly wishlistService: WishlistService = inject(WishlistService)
-
   private readonly toastr: ToastrService = inject(ToastrService)
 
 
@@ -33,7 +33,6 @@ export class ProductSingleCardComponent {
         this.toastr.success(response.message, 'Success')
       },
     });
-
   }
 
   addToWishlist(pId: string) {
